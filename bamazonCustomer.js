@@ -52,10 +52,6 @@ function showItems() {
                 res[i].department_name + " - " + res[i].price + " - " + res[i].quantity + "\n");
         }
 
-        currentInventory = [];
-        for (var i = 0; i < res.length; i++) {
-            currentInventory.push(res[i].item_id);
-        }
         homePage();
     });
 }
@@ -96,13 +92,13 @@ function shopID() {
 
                 if (currentStock >= itemQTY) {
 
-                    connection.query('UPDATE inventory SET ? WHERE ?', [{ item_id: itemID }, { quantity: updatedStock }], function (err, res) {
+                    connection.query('UPDATE products SET ? WHERE ?', [{ item_id: itemID }, { quantity: updatedStock }], function (err, res) {
 
                         console.log("For " + itemQTY + " units of " + itemName);
                         console.log("You have been charged: $" + totalCost);
                         console.log("Thank you for your purchase!");
-                    });
-                    connection.end();
+                        // homePage();
+                    })
                 } else {
                     console.log("There is not enough inventory for that purchase");
                     homePage();
